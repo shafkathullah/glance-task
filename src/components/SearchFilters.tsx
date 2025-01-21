@@ -69,7 +69,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
           <input
             type="text"
             id="search"
-            className="w-full rounded-lg border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="w-full rounded-lg border-gray-200 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             placeholder="Search by title..."
             value={filters.search}
             onChange={(e) => handleFilterChange("search", e.target.value)}
@@ -85,7 +85,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
           </label>
           <select
             id="genre"
-            className="w-full rounded-lg border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="w-full rounded-lg border-gray-200 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             value={filters.genre}
             onChange={(e) => handleFilterChange("genre", e.target.value)}
           >
@@ -107,7 +107,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
           </label>
           <select
             id="year"
-            className="w-full rounded-lg border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="w-full rounded-lg border-gray-200 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             value={filters.year}
             onChange={(e) => handleFilterChange("year", e.target.value)}
           >
@@ -129,7 +129,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
           </label>
           <select
             id="country"
-            className="w-full rounded-lg border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="w-full rounded-lg border-gray-200 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             value={filters.country}
             onChange={(e) => handleFilterChange("country", e.target.value)}
           >
