@@ -27,7 +27,12 @@ async function getMovies() {
 
 function filterMovies(
   movies: Movie[],
-  searchParams: { [key: string]: string }
+  searchParams: {
+    search: string;
+    genre: string;
+    year: string;
+    country: string;
+  }
 ) {
   return movies.filter((movie) => {
     const matchesSearch =
@@ -43,11 +48,18 @@ function filterMovies(
 }
 
 interface PageProps {
-  searchParams: { [key: string]: string };
+  searchParams: Promise<{
+    search: string;
+    genre: string;
+    year: string;
+    country: string;
+  }>;
 }
 
-export default async function Home({ searchParams }: PageProps) {
+export default async function Home(props: PageProps) {
   const movies = await getMovies();
+  const searchParams = await props.searchParams;
+
   const filteredMovies = filterMovies(movies, searchParams);
   const stats = calculateMovieStats(movies);
 
