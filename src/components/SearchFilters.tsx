@@ -1,22 +1,24 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Movie } from "@/types/movie";
 
 interface SearchFiltersProps {
   initialMovies: Movie[];
-  onFilter: (movies: Movie[]) => void;
+  onFilter: (filters: { [key: string]: string }) => void;
 }
 
 export const SearchFilters: React.FC<SearchFiltersProps> = ({
   initialMovies,
   onFilter,
 }) => {
+  const searchParams = useSearchParams();
   const [filters, setFilters] = useState({
-    search: "",
-    genre: "",
-    year: "",
-    country: "",
+    search: searchParams.get("search") || "",
+    genre: searchParams.get("genre") || "",
+    year: searchParams.get("year") || "",
+    country: searchParams.get("country") || "",
   });
 
   // Get unique values for filters
@@ -36,21 +38,20 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
     [initialMovies]
   );
 
-  // Filter movies when filters change
+  // Update URL when filters change
   useEffect(() => {
-    const filteredMovies = initialMovies.filter((movie) => {
-      const matchesSearch = movie.title
-        .toLowerCase()
-        .includes(filters.search.toLowerCase());
-      const matchesGenre =
-        !filters.genre || movie.genre.includes(filters.genre);
-      const matchesYear = !filters.year || movie.year === filters.year;
-      const matchesCountry =
-        !filters.country || movie.country.includes(filters.country);
-      return matchesSearch && matchesGenre && matchesYear && matchesCountry;
+    onFilter(filters);
+  }, [filters, onFilter]);
+
+  // Update filters when URL changes
+  useEffect(() => {
+    setFilters({
+      search: searchParams.get("search") || "",
+      genre: searchParams.get("genre") || "",
+      year: searchParams.get("year") || "",
+      country: searchParams.get("country") || "",
     });
-    onFilter(filteredMovies);
-  }, [initialMovies, filters, onFilter]);
+  }, [searchParams]);
 
   const handleFilterChange = (key: keyof typeof filters, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
